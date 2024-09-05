@@ -1,0 +1,64 @@
+{% extends 'home/professeur/prof_base.html' %}
+{% block content %}
+  {% load static %}
+
+  <div class="container-fluid py-5">
+    <div class="container py-5">
+      <div class="text-center mb-5">
+        <h1>Créer un cours</h1>
+      </div>
+      <div class="row justify-content-center text-dark w-100">
+        <div class="col-lg-12">
+          <div class="contact-form rounded p-5" style="background-color: rgb(202, 202, 211);">
+            <div id="success"></div>
+            <form method="POST" enctype="multipart/form-data">
+              {% csrf_token %}
+              <div class="row">
+                <div class="control-group col-8">
+                  <label for="titre"><b>Titre du cours</b></label>
+                  <input type="text" class="form-control border-0 p-4" id="titre" placeholder="Titre du cours" required="required" data-validation-required-message="Veillez saisir le titre de ce cours" name="titre" />
+
+                  <label for="intoduction"><b>intoduction</b></label>
+                  <textarea class="form-control border-0 p-4" name="intoduction" id="intoduction" placeholder="Introcuction du cours"></textarea>
+
+                  <label for="resume"><b>Resume</b></label>
+                  <textarea class="form-control border-0 p-4" name="resume" id="resume" placeholder="Votre resumé ici"></textarea>
+
+                  <label for="fichier"><b>Ajouter un fichier</b></label>
+                  <input type="file" class="form-control border-0 p-4" id="fichier" name="fichier" />
+                </div>
+
+                <div class="control-group col-4">
+                  <select class="form-select mt-4" aria-label="Default select example" name="choix_matiere">
+                    <option selected>Choisir une matière</option>
+                    {% for matieres in matiere %}
+                      <option value="{{ matieres.id }}">{{ matieres.nom_matiere }}</option>
+                    {% endfor %}
+                  </select>
+
+                  <select class="form-select mt-5" aria-label="Default select example" name="choix_classe">
+                    <option selected>Choisir une classe</option>
+                    {% for classe in classe %}
+                      <option value="{{ classe.id }}">{{ classe.nom_Classe }}</option>
+                    {% endfor %}
+                  </select>
+
+                  <div class="mt-3">
+                    <label class="visually-hidden" for="time">Temps</label>
+                    <div class="input-group">
+                      <div class="input-group-text">temps estimé</div>
+                      <input type="time" class="form-control" id="time" placeholder="temps" name="temps" required="required" />
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="text-center">
+                <button class="btn btn-info py-3 px-5 mt-3" type="submit"><b>Creer</b></button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}

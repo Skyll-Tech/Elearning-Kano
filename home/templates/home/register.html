@@ -1,0 +1,49 @@
+{% extends "home/base.html" %}
+{% block content %}
+{% load static %}
+
+
+<div class="container-fluid py-5">
+    <div class="container py-5">
+        <div class="text-center mb-5">
+            <h5 class="text-primary text-uppercase mb-3" style="letter-spacing: 5px;">Contact</h5>
+            <h1>Sign up page</h1>
+        </div>
+        <div class="row justify-content-center">
+            <div class="col-lg-8">
+                <div class="contact-form bg-secondary rounded p-5">
+                    <div id="success"></div>
+                    <form method="POST">
+                        {% csrf_token %}
+                        <div class="control-group">
+                            <label for="name">Nom</label>
+                            <input type="text" class="form-control border-0 p-4" id="name" placeholder="Your Name" required="required" data-validation-required-message="Please enter your name" name="username" />
+                            <p class="help-block text-danger"></p>
+                        </div>
+                        <div class="control-group">
+                            <label for="email">email</label>
+                            <input type="email" class="form-control border-0 p-4" id="email" placeholder="Your Email" required="required" data-validation-required-message="Please enter your email" name="email" />
+                            <p class="help-block text-danger"></p>
+                        </div>
+                        <div class="control-group">
+                            <label for="password">Mot de pass</label>
+                            <input type="password" class="form-control border-0 p-4" id="password" placeholder="Your password" required="required" data-validation-required-message="Please enter your pass" name="password" />
+                            <p class="help-block text-danger"></p>
+                        </div>
+                        <div class="control-group">
+                            <label for="confirm-password">Confirmer mot de pass</label>
+                            <input type="password" class="form-control border-0 p-4" id="confirm-password" placeholder="Your password" required="required" data-validation-required-message="Please enter your pass" name="confirm_password" />
+                            <p class="help-block text-danger"></p>
+                        </div>
+                        <div class="text-center">
+                            <button class="btn btn-primary py-3 px-5" type="submit">Soumettre</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+{% endblock %}

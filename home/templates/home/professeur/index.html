@@ -1,0 +1,8 @@
+{% extends 'home/professeur/prof_base.html' %}
+{% block content %}
+  {% load static %}
+
+  {% for cours in cour %}
+    <h1>{{ cours.Date_creation|date:'d M Y H:i' }}</h1>
+  {% endfor %}
+{% endblock %}

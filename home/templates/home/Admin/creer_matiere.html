@@ -1,0 +1,35 @@
+{% extends "home/admin/admin_base.html" %}
+{% block content %}
+{% load static %}
+
+<div class="container-fluid py-5">
+    <div class="container py-5">
+        <div class="text-center mb-5">
+            <h1>Créer une nouvelle matière</h1>
+        </div>
+        <div class="row justify-content-center text-dark w-75">
+            <div class="col-lg-12">
+                <div class="contact-form rounded p-5" style="background-color: rgb(202, 202, 211);">
+                    <div id="success"></div>
+                    <form method="POST">
+                        {% csrf_token %}
+                        <div class="control-group">
+                            <label for="Nmatière"><b>Nom de la matière</b></label>
+                            <input type="text" class="form-control border-0 p-4"
+                                id="Nmatière" placeholder="Saisir le nom de la matière"
+                                required="required" 
+                                data-validation-required-message="Veillez saisir le matricule de l'élève"
+                                name="nom_matiere"/>
+                        </div>
+                        <div class="text-center">
+                            <button class="btn btn-primary py-3 px-5 mt-3"
+                                type="submit">Creer</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

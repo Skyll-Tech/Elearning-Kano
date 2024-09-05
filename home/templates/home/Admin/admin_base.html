@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="fr">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Admin</title>
+        <link
+            href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+            rel="stylesheet"
+            integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+            crossorigin="anonymous">
+            
+    </head>
+    <body>
+        <div class="container-fluid">
+            <div class="container-fluid mt-3 rounded"
+                style="margin-bottom: 40px; background-color: rgb(2, 2, 71);">
+                <div class="container">
+                    <div class="d-flex flex-column justify-content-center"
+                        style="min-height: 300px">
+                        <h3 class="display-3 text-white text-uppercase">Espace
+                            d'administration
+                        </h3>
+                        <div class="d-inline-flex text-white">
+                            <p class="m-0 text-uppercase text-white">kano learning</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!--
+            <div class="container text-center">
+                <div class="row">
+                    <div class="col">
+                        <a href
+                            class="btn btn-primary py-md-2 px-md-4 font-weight-semi-bold mt-2">Gérer compte professeur </a>
+                    </div>
+                    <div class="col">
+                        <a href
+                            class="btn btn-primary py-md-2 px-md-4 font-weight-semi-bold mt-2">Gérer compte élève</a>
+                    </div>
+                    <div class="col">
+                        <a href
+                            class="btn btn-primary py-md-2 px-md-4 font-weight-semi-bold mt-2">Ajouter
+                            une classe </a>
+                    </div>
+                    <div class="col">
+                        <a href
+                            class="btn btn-primary py-md-2 px-md-4 font-weight-semi-bold mt-2">Ajouter
+                            une matière</a>
+                    </div>
+                </div>
+            </div>
+
+            -->
+
+            <div class="row">
+                <div class="btn-group col">
+                    <button type="button"
+                        class="btn btn-primary dropdown-toggle"
+                        data-bs-toggle="dropdown" aria-expanded="false">
+                        Gérer compte professeur
+                    </button>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href=" {% url 'creer_matprof' %} ">Creer un
+                                matricule</a></li>
+                        <li><a class="dropdown-item" href="#">Modifier un compte</a></li>
+                    </ul>
+                </div>
+
+                <div class="btn-group col">
+                    <button type="button"
+                        class="btn btn-primary dropdown-toggle"
+                        data-bs-toggle="dropdown" aria-expanded="false">
+                        Gérer compte élève
+                    </button>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="{% url 'creer_mateleve' %}">Creer un
+                                matricule</a></li>
+                        <li><a class="dropdown-item" href="#">Modifier un
+                                compte</a></li>
+                    </div>
+                    <div class="btn-group col ">
+                        <button type="button"
+                            class="btn btn-primary dropdown-toggle"
+                            data-bs-toggle="dropdown" aria-expanded="false">
+                            Gérer les classe 
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item"
+                                    href="{% url "creerclasse" %}">Creer une classe</a></li>
+                            <li><a class="dropdown-item" href="#">Modifier une classe</a></li>
+                        </ul>
+                    </div>
+                    <div class="btn-group col">
+                        <button type="button"
+                            class="btn btn-primary dropdown-toggle"
+                            data-bs-toggle="dropdown" aria-expanded="false">
+                            Gérer matière
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item"
+                                    href="{% url 'creer_matiere' %}">Ajouter une matière</a></li>
+                            <li><a class="dropdown-item" href="#">Modifier une matière</a></li>
+                        </ul>
+                    </div>
+                </div>
+
+            </div>
+
+
+            {% block content %}
+
+
+            {% endblock %}
+
+
+            <!------------------------------------- script-------------------------------------->
+            <script
+                src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+                integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+                crossorigin="anonymous"></script>
+        </body>
+    </html>

@@ -1,0 +1,15 @@
+{% extends "home/base.html" %}
+{% block content %}
+{% load static %}
+
+<div class="container">
+    <h1> creer un  produit </h1>
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{form.as_p}} <!-- ici on recupere le formulaire avec la variable "form" creer dans views. et on souhaites que le formulaire soit affiché sous forme de paragraphe-->
+        <button type="submit" class"btn btn-primary">Soumettre </button>
+    </form>
+</div>
+
+
+{% endblock %}

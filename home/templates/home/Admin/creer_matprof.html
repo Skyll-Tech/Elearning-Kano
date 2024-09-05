@@ -1,0 +1,35 @@
+{% extends "home/admin/admin_base.html" %}
+{% block content %}
+{% load static %}
+
+<div class="container-fluid py-5">
+    <div class="container py-5">
+        <div class="text-center mb-5">
+            <h1>Créer un matricule Professeur</h1>
+        </div>
+        <div class="text-dark w-75">
+            <div class="col-lg-12">
+                <div class="contact-form rounded p-5" style="background-color: rgb(202, 202, 211);">
+                    <div id="success"></div>
+                    <form method="POST">
+                        {% csrf_token %}
+                        <div class="control-group">
+                            <label for="matriculeprof"><b>Matricule</b></label>
+                            <input type="text" class="form-control border-0 p-4"
+                                id="matriculeprof" placeholder="Matricule du professeur"
+                                required="required" 
+                                data-validation-required-message="Veillez saisir le matricule du professeur"
+                                name="mat_prof"/>
+                        </div>
+                        <div class="text-center">
+                            <button class="btn btn-primary py-3 px-5 mt-3"
+                                type="submit">Creer</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

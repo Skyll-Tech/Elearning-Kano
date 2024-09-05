@@ -1,0 +1,15 @@
+{% extends "home/base.html" %}
+{% block content %}
+{% load static %}
+
+<div class="container">
+    <h1> êtes vous sur de vouloir supprimer le produit {{produits.nom}} ? </h1>
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-danger">oui </button>
+        <a href="{% url "display" %}" class="btn btn-primary py-md-2 px-md-4 font-weight-semi-bold mt-2">non</a>
+    </form>
+</div>
+
+
+{% endblock %}
