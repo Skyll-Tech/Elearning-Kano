@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h2>Ajouter des questions au quiz: {{ quiz.title }}</h2>
+    <form method="post">
+        {% csrf_token %}
+        {% for i, index in combined_list %}
+            <label for="text_{{ i }}">Question {{ index }}:</label>
+            <input type="text" id="text_{{ i }}" name="text_{{ i }}" required><br>
+            <label for="option1_{{ i }}">Option 1:</label>
+            <input type="text" id="option1_{{ i }}" name="option1_{{ i }}" required><br>
+            <label for="option2_{{ i }}">Option 2:</label>
+            <input type="text" id="option2_{{ i }}" name="option2_{{ i }}" required><br>
+            <label for="option3_{{ i }}">Option 3:</label>
+            <input type="text" id="option3_{{ i }}" name="option3_{{ i }}" required><br>
+            <label for="option4_{{ i }}">Option 4:</label>
+            <input type="text" id="option4_{{ i }}" name="option4_{{ i }}" required><br>
+            <label for="correct_option_{{ i }}">Option correcte:</label>
+            <input type="text" id="correct_option_{{ i }}" name="correct_option_{{ i }}" required><br>
+        {% endfor %}
+        <button type="submit">Ajouter les questions</button>
+    </form>
+    
+
+
+
+</body>
+</html>

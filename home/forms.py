@@ -1,5 +1,5 @@
 from django import forms
-from .models import Produit, Classe, Professeur, Matiere, Cours
+from .models import Produit, Classe, Professeur, Matiere, Cours, Quiz, Question
 
 class Produit_form(forms.ModelForm):
     class Meta:
@@ -36,3 +36,14 @@ class Creer_Cours(forms.ModelForm):
     class Meta:
         model = Cours
         fields = '__all__'
+        
+        
+class QuizForm(forms.ModelForm):
+    class Meta:
+        model = Quiz
+        fields = ['title']
+
+class QuestionForm(forms.ModelForm):
+    class Meta:
+        model = Question
+        fields = ['text', 'option1', 'option2', 'option3', 'option4', 'correct_option']

@@ -1,0 +1,45 @@
+{% extends 'home/professeur/prof_base.html' %}
+{% block content %}
+{% load static %}
+
+<div class="container-fluid py-5">
+    <div class="container py-5">
+        <div class="text-center mb-5">
+            <h1>Ajouter des questions test: {{ quiz.title }}</h1>
+        </div>
+        <div class="row justify-content-center text-dark w-100">
+            <div class="col-lg-12">
+                <div class="contact-form rounded p-5"style="background-color: rgb(202, 202, 211);">
+                    <form method="POST">
+                        {% csrf_token %}
+                        {% for i, index in combined_list %}
+                        <div class="row">
+                            <div class="control-group col-8">
+                                <label for="text_{{ i }}">Question {{ index }}:</label>
+                                <input type="text"
+                                    class="form-control border-0 p-4"id="text_{{ i }}" name="text_{{ i }}"placeholder="Titre du cours"required="required"data-validation-required-message="Veillez saisir le titre de ce cours" />
+                                <label for="option1_{{ i }}">Option 1:</label>
+                                <input type="text"class="form-control border-0 p-4"id="option1_{{ i }}" name="option1_{{ i }}" placeholder="Titre du cours"required="required"data-validation-required-message="Veillez saisir le titre de ce cours" />
+                                <label for="option2_{{ i }}">Option 2:</label>
+                                <input type="text"class="form-control border-0 p-4"id="option2_{{ i }}" name="option2_{{ i }}"placeholder="Titre du cours"required="required"data-validation-required-message="Veillez saisir le titre de ce cours" />
+                                <label for="option3_{{ i }}">Option 3:</label>
+                                <input type="text"class="form-control border-0 p-4"id="option3_{{ i }}" name="option3_{{ i }}"placeholder="Titre du cours"required="required"data-validation-required-message="Veillez saisir le titre de ce cours" />
+                                <label for="option4_{{ i }}">Option 4:</label>
+                                <input type="text"class="form-control border-0 p-4"id="option4_{{ i }}" name="option4_{{ i }}"placeholder="Titre du cours"required="required"data-validation-required-message="Veillez saisir le titre de ce cours" />
+                                <label for="correct_option_{{ i }}">Option correcte:</label>
+                                <input type="text"class="form-control border-0 p-4"id="correct_option_{{ i }}"name="correct_option_{{ i }}"placeholder="Titre du cours"required="required"data-validation-required-message="Veillez saisir le titre de ce cours" />
+                            </div>
+                            {% endfor %}
+                            <div class="text-center">
+                                <button class="btn btn-info py-3 px-5 mt-3"
+                                    type="submit"><b>Créer le test</b>
+                                </button>
+                            </div>
+                            </div>
+                        </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endblock %}

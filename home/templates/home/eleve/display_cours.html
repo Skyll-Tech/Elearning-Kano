@@ -19,14 +19,15 @@
   <div class="container-fluid py-5">
     <div class="container py-5">
       <div class="text-center mb-5">
-        <h1>Our Popular Courses</h1>
+        <h1>Vos differents cours</h1>
       </div>
+      
       <div class="row">
         {% for cour in cours %}
-          <a href="{% url 'details_cours' cours.slug %}">
+        <a href="">
             <div class="col-lg-4 col-md-6 mb-4">
               <div class="rounded overflow-hidden mb-2">
-                <img class="img-fluid" src="{% static 'img/course-1.jpg' %}" alt="" />
+                <img class="img-fluid" src="{{ cour.profil_cours.url }}" alt="" />
                 <div class="bg-secondary p-4">
                   <div class="d-flex justify-content-between mb-3">
                   </div>
@@ -34,7 +35,7 @@
                   <div class="border-top mt-4 pt-4">
                     <div class="d-flex justify-content-between">
                       <h6 class="border-right-3">{{cour.Date_creation}}</h6>
-                      <small class="m-0"><i class="far fa-clock text-primary mr-2"></i>01h 30m</small>
+                      <small class="m-0"><i class="far fa-clock text-primary mr-2"></i>{{cour.temps_etudes}}min</small>
                       
                     </div>
                   </div>

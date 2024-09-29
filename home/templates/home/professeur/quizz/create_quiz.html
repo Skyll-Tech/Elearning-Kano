@@ -1,0 +1,33 @@
+{% extends 'home/professeur/prof_base.html' %}
+{% block content %}
+  {% load static %}
+
+  <div class="container-fluid py-5">
+    <div class="container py-5">
+      <div class="text-center mb-5">
+        <h1>Créer un test</h1>
+      </div>
+      <div class="row justify-content-center text-dark w-100">
+        <div class="col-lg-12">
+          <div class="contact-form rounded p-5" style="background-color: rgb(202, 202, 211);">
+            <form method="POST">
+              {% csrf_token %}
+              <div class="row">
+                <div class="control-group col-8">
+                  <label for="title"><b>Titre du test:</b></label>
+                  <input type="text" class="form-control border-0 p-4" id="title" placeholder="Nom du test" required="required" data-validation-required-message="Veillez saisir le titre de ce cours" name="title" />
+                  <label for="num_questions"><b>Nombre de questions:</b></label>
+                  <input type="number" class="form-control border-0 p-4" id="num_questions" placeholder="Nombre de question" required="required" data-validation-required-message="Veillez saisir le titre de ce cours" name="num_questions" />
+              </div>
+              <div class="text-center">
+                <button class="btn btn-info py-3 px-5 mt-3" type="submit"><b>Créer le test</b></button>
+                </div>
+                </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}
+

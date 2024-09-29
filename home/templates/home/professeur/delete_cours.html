@@ -1,0 +1,15 @@
+{% extends 'home/professeur/prof_base.html' %}
+{% block content %}
+{% load static %}
+
+<div class="container">
+    <h1 class="fs-4 mt-2"> Êtes vous sur de vouloir supprimer le cours: {{cours.titre}} ? </h1>
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-danger py-md-2 px-md-4 font-weight-semi-bold mt-2">oui </button>
+        <a href="{% url "cours_prof" %}" class="btn btn-primary py-md-2 px-md-4 font-weight-semi-bold mt-2">non</a>
+    </form>
+</div>
+
+
+{% endblock %}

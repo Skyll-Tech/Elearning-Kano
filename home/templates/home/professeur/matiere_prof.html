@@ -1,0 +1,18 @@
+{% extends 'home/professeur/prof_base.html' %}
+{% block content %}
+  {% load static %}
+
+  <div class="container-fluid row mt-5 text-center justify-content-center">
+    {% for matieres in matieres %}
+      <div class="col-3  m-4 text-black" style="background-color: rgb(202, 202, 211);">
+        <div class="row"><b>{{ matieres.nom_matiere }}</b></div>
+        <div class="row border border-top">
+          <div class="col">
+            <a href="{% url 'cours_matiere_prof' matieres.id %}" class="btn btn-info py-md-2 px-md-4 font-weight-semi-bold mt-2 mb-2 border-right">Voir les cours de cette matière</a>
+        </div>
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+
+{% endblock %}

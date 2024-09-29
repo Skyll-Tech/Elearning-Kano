@@ -1,0 +1,52 @@
+{% extends 'home/eleve/base.html' %}
+{% block content %}
+  {% load static %}
+
+  <!-- Header Start -->
+  <div class="container-fluid page-header" style="margin-bottom: -50px;">
+    <div class="container">
+      <div class="d-flex flex-column justify-content-center" style="min-height: 300px">
+        <h3 class="display-4 text-white text-uppercase">Bonnes lecture</h3>
+        <div class="d-inline-flex text-white">
+          <p class="m-0 text-uppercase">Lire et relire autant que necessaire</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Header End -->
+
+  <!-- Category Start -->
+  <div class="container-fluid py-5">
+    <div class="container pt-5 pb-3">
+      <div class="text-center mb-5">
+        <h1>{{ matiere.nom_matiere }}</h1>
+      </div>
+      <!-- Courses Start -->
+      <div class="container-fluid py-5">
+        <div class="row">
+          {% for cours in cours %}
+            <a href="{% url "details_cours" cours.id %}">
+              <div class="col-lg-4 col-md-6 mb-4">
+                <div class="rounded overflow-hidden mb-2">
+                  <img class="img-fluid" src="{{ cours.profil_cours.url }}" alt="" />
+                  <div class="bg-secondary p-4">
+                    <div class="d-flex justify-content-between mb-3"></div>
+                    <a class="h5" href="{% url "details_cours" cours.id %}">{{ cours.titre }}</a>
+                    <div class="border-top mt-4 pt-4">
+                      <div class="d-flex justify-content-between">
+                        <h6 class="m-0"><small>Crée le: {{ cours.Date_creation }}</small></h6>
+                        <h6 class="m-0"><small class="far fa-clock text-primary mr-2">{{ cours.temps_etudes }}min</small></h6>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </a>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+    <!-- Courses End -->
+  </div>
+  <!-- Category Start -->
+{% endblock %}

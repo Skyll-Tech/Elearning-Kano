@@ -1,0 +1,16 @@
+{% extends 'home/professeur/prof_base.html' %}
+{% block content %}
+  {% load static %}
+
+  <div class="container-fluid row mt-5 text-center justify-content-center">
+    <h2><b>Liste des tests</b></h2>
+    <div class="row">
+      {% for quiz in quizzes %}
+        <div class="list-group col-4 mb-2">
+          <a href="{% url 'take_quiz' quiz.id %}" class="list-group-item list-group-item-action mb-2">{{ quiz.title }} <br> 
+        </a>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+{% endblock %}

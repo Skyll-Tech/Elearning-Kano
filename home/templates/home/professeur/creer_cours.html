@@ -24,7 +24,9 @@
                   <label for="resume"><b>Resume</b></label>
                   <textarea class="form-control border-0 p-4" name="resume" id="resume" placeholder="Votre resumé ici"></textarea>
 
-                  <label for="fichier"><b>Ajouter un fichier</b></label>
+                  <label for="doc"><b>Ajouter un document</b></label>
+                  <input type="file" class="form-control border-0 p-4" id="doc" name="document" />
+                  <label for="fichier"><b>Ajouter une image</b></label>
                   <input type="file" class="form-control border-0 p-4" id="fichier" name="fichier" />
                 </div>
 
@@ -43,13 +45,10 @@
                     {% endfor %}
                   </select>
 
-                  <div class="mt-3">
-                    <label class="visually-hidden" for="time">Temps</label>
-                    <div class="input-group">
-                      <div class="input-group-text">temps estimé</div>
-                      <input type="time" class="form-control" id="time" placeholder="temps" name="temps" required="required" />
-                    </div>
-                  </div>
+                  <label for="file"><b>Ajouter un profil à ce cours</b></label>
+                  <input type="file" class="form-control border-0 p-4" id="file" name="profil_cours" />
+                  <label for="min"><b>Temps d'etudes (en minutes)</b></label>
+                  <input type="number" class="form-control border-0 p-4" id="min" name="temps_etudes" />
                 </div>
               </div>
               <div class="text-center">

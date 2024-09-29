@@ -1,0 +1,39 @@
+{% extends "home/admin/admin_base.html" %}
+{% block content %}
+{% load static %}
+
+  <div class="container-fluid row mt-5 mb-5">
+    <div class="col text-center fs-5 fw-bold border-end">
+      Liste des matières<div class="row">
+        {% for matiere in matiere %}
+          <div class="col-3 m-4 text-black rounded fs-5 fw-bold" style="background-color: rgb(202, 202, 211);">
+            {{ matiere.nom_matiere }}<div class="row border border-top">
+              <div class="col">
+                <a href="{% url "update_matiere" matiere.id %}" class="btn btn-info font-weight-semi-bold mt-2 border-right fs-6">modifier</a>
+              </div>
+              <div class="col">
+                <a href="{% url "delete_matiere" matiere.id %}" class="btn btn-danger font-weight-semi-bold mt-2 border-right fs-6 mb-2">supprimer</a>
+              </div>
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+    </div>
+
+    <div class="col text-center fs-5 fw-bold">
+      Liste des classes<div class="row">
+        {% for classe in classe %}
+          <div class="col-3 m-4 text-black rounded fs-5 fw-bold" style="background-color: rgb(202, 202, 211);">
+            {{ classe.nom_Classe }}<div class="row border border-top">
+              <div class="col">
+                <a href="{% url "update_classe" classe.id %}" class="btn btn-info font-weight-semi-bold mt-2 border-right fs-6">modifier</a>
+              </div>
+              <div class="col">
+                <a href="{% url "delete_classe" classe.id %}" class="btn btn-danger font-weight-semi-bold mt-2 border-right fs-6 mb-2">supprimer</a>
+              </div>
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+  </div>
+{% endblock %}

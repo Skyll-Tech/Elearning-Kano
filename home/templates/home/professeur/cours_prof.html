@@ -1,0 +1,23 @@
+{% extends 'home/professeur/prof_base.html' %}
+{% block content %}
+  {% load static %}
+
+  <div class="container-fluid row mt-5 text-center justify-content-center">
+    {% for cours in cours %}
+      <div class="col-3  m-4 text-black" style="background-color: rgb(202, 202, 211);">
+        <div class="row">Titre: {{ cours.titre }}</div>
+        <div class="row">{{ cours.intoduction }}</div>
+        <div class="row">{{ cours.resume }}</div>
+        <div class="row">Date de creation: {{ cours.Date_creation }}</div>
+        <div class="row border border-top">
+          <div class="col">
+            <a href="{% url "modifier_cours" cours.id %}" class="btn btn-info py-md-2 px-md-4 font-weight-semi-bold mt-2 mb-2 border-right">modifier</a>
+          </div>
+          <div class="col">
+            <a href="{% url "delete_cours" cours.id %}" class="btn btn-danger py-md-2 px-md-4 font-weight-semi-bold mt-2 mb-2">supprimer</a>
+          </div>
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+{% endblock %}
