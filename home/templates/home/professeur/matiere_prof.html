@@ -2,6 +2,18 @@
 {% block content %}
   {% load static %}
 
+
+  {% if messages %}
+<div class="container mt-3">
+    {% for message in messages %}
+        <div class="alert {% if message.tags %}alert-{{ message.tags }}{% else %}alert-info{% endif %}" role="alert">
+            {{ message }}
+        </div>
+    {% endfor %}
+</div>
+{% endif %}
+
+
   <div class="container-fluid row mt-5 text-center justify-content-center">
     {% for matieres in matieres %}
       <div class="col-3  m-4 text-black" style="background-color: rgb(202, 202, 211);">

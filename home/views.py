@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponse
-from .models import Produit, Classe, Professeur, Matiere, Cours, Quiz, Question
-from .forms import Produit_form, Classe_form, Mat_prof_form, Matiere_form, Creer_Cours
+from .models import Produit, Classe, Professeur, Matiere, Cours, Quiz, Question, Archives
+from .forms import Produit_form, Classe_form, Mat_prof_form, Matiere_form, Creer_Cours, archive_form
 from django.contrib import messages
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login
@@ -132,9 +132,7 @@ def creer_matiere(request):
     if request.method == "POST":
         form = Matiere_form(request.POST)
         if form.is_valid():
-            nom_matiere = form.cleaned_data[
-                "nom_matiere"
-            ]  # La fonction "cleaned_data" est utilisée dans les formulaires Django pour accéder aux données validées et nettoyées après que le formulaire a été soumis et validé.
+            nom_matiere = form.cleaned_data["nom_matiere"]  # La fonction "cleaned_data" est utilisée dans les formulaires Django pour accéder aux données validées et nettoyées après que le formulaire a été soumis et validé.
             if Matiere.objects.filter(nom_matiere=nom_matiere).exists():
                 messages.error(request, "cette matière existe déjà!")
             else:
@@ -151,9 +149,7 @@ def update_matiere(request, id):
     if request.method == "POST":
         form = Matiere_form(request.POST, instance=matiere)
         if form.is_valid():
-            nom_matiere = form.cleaned_data[
-                "nom_matiere"
-            ]
+            nom_matiere = form.cleaned_data["nom_matiere"]
             if Matiere.objects.filter(nom_matiere=nom_matiere).exists():
                 messages.error(request, "cette matière existe déjà!")
             else:
@@ -217,6 +213,16 @@ def delete_classe(request, id):
 
 
 
+
+          ##authentification admin
+
+def login_admin(request):
+    return render(request,"home/admin/auth/login.html")
+
+def register_admin(request):
+    return render(request, "home/admin/auth/register.html")
+
+
 ##################### Professeur #####################
 
 
@@ -239,11 +245,10 @@ def creer_cours(request):
                 messages.error(request, "Ce cours existe déjà!")
             else:
                 form.save()
-                messages.success(request, "Cours crée avec succes!")
+                messages.success(request, "Cours créé avec succès!")
             return redirect("creer_cours")
 
     return render(request, "home/professeur/creer_cours.html", context)
-
 
 
 def matiere_prof(request):
@@ -273,7 +278,7 @@ def modifier_cours(request, id):
             else:
                 form.save()
                 messages.success(request, "Cours modifier avec succes!")
-            return redirect("cours_prof")
+            return redirect("matiere_prof")
     else:
         form = Creer_Cours(instance=cours)
     context = {"classe": classes, "matiere": matiere, "cours": cours, "form": form}
@@ -284,7 +289,7 @@ def delete_cours(request, id):
     cours = get_object_or_404(Cours, id=id)
     if request.method == "POST":
         cours.delete()
-        return redirect("cours_prof")
+        return redirect("matiere_prof")
 
     return render(request, "home/professeur/delete_cours.html", {"cours": cours})
 
@@ -337,10 +342,28 @@ def add_questions(request, quiz_id, num_questions):
 def quiz_list(request):
     quizzes = Quiz.objects.all()
     return render(request, 'home/professeur/quizz/quiz_list.html', {'quizzes': quizzes})
-
-
-
 # fin Quizz
+
+
+# Archives
+
+def voir_archive(request):
+    archive = Archives.objects.all()
+    context = {"archive":archive}
+    return render(request,'home/professeur/archives/archive.html',context)
+
+def creer_archive(request):
+    if request.method == "POST":
+        form = archive_form(request.POST, request.FILES)
+        if form.is_valid():
+            form.save()
+            messages.success(request, "Archive créée avec succès!")
+            return redirect("archive")
+        else:
+            messages.error(request, "Erreur lors de la création de l'archive. Veuillez vérifier les informations fournies.")
+    else:
+        form = archive_form()
+    return render(request, 'home/professeur/archives/creer_archive.html', {"form": form})
 
 
 ##################### élève #####################

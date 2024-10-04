@@ -2,10 +2,37 @@
 {% block content %}
   {% load static %}
 
-
-<h1>{{cours.titre}}</h1>
-<h2>{{cours.resume}}</h2>
-<h2>{{cours.document.url}}</h2>
-
-
+  <div class="container-fluid">
+    <div class="container-fluid rounded mt-4" style="background-color: rgb(229, 239, 247);">
+      <div class="row">
+        <div class="col-4 border-right mt-2">
+          <h6>Vous êtes en train de lire un cours de: {{ cours.choix_matiere }}</h6>
+          <p>Publié le: {{ cours.Date_creation }}</p>
+          <p>Le temps de lecture est estimé à: {{ cours.temps_etudes }}min</p>
+          <div class="class">
+            <a href="#intro">..Aller à: l'introduction</a>
+          </div>
+          <div class="class">
+            <a href="#resume">..Aller au: resumé</a>
+          </div>
+          <div class="class">
+            <a href="#conclusion">..Aller à: la conclusion</a>
+          </div>
+          {% if cours.document %}
+          <a href="{{ cours.document.url }}" style="color: black;" target="_blank">{{ cours.document.name }}>>>Voir le fichier lier</a><br />
+          <div class="border rounded w-75 bg-primary text-center">
+            <a href="{{ cours.document.url }}" download="{{ cours.document.name }}" class="download-button text-white fw-bold">Télécharger le documents</a>
+          </div>
+          {% else %}
+            <p>Aucun document disponible pour ce cours.</p>
+        {% endif %}
+        </div>
+        <div class="col-8 border-left mt-1">
+          <h1>{{ cours.titre }}</h1>
+          <h6 class="text-black mb-2" id="intro">{{ cours.intoduction }}</h6><br />
+          <h6 id="resume">{{ cours.resume }}</h6><br />
+        </div>
+      </div>
+    </div>
+  </div>
 {% endblock %}

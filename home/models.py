@@ -75,18 +75,21 @@ class Cours(models.Model):
     
     
     
-
-
-# Modèle pour le quiz
 class Quiz(models.Model):
     title = models.CharField(max_length=200)  # Titre du quiz
 
 # Modèle pour les questions
 class Question(models.Model):
-    quiz = models.ForeignKey(Quiz, on_delete=models.CASCADE)  # Référence au quiz
-    text = models.CharField(max_length=200)  # Texte de la question
-    option1 = models.CharField(max_length=200)  # Option 1
-    option2 = models.CharField(max_length=200)  # Option 2
-    option3 = models.CharField(max_length=200)  # Option 3
-    option4 = models.CharField(max_length=200)  # Option 4
-    correct_option = models.CharField(max_length=200)  # Option correcte
+    quiz = models.ForeignKey(Quiz, on_delete=models.CASCADE) 
+    text = models.CharField(max_length=200)  
+    option1 = models.CharField(max_length=200)
+    option2 = models.CharField(max_length=200)
+    option3 = models.CharField(max_length=200)
+    option4 = models.CharField(max_length=200)
+    correct_option = models.CharField(max_length=200)
+    
+    
+
+class Archives(models.Model):
+    nom_archive = models.CharField(max_length=100)
+    fichier = models.FileField(upload_to='documents/', null=True, blank=True)

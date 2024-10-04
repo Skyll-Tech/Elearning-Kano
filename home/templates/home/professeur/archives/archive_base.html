@@ -81,7 +81,9 @@
                         <li><a class="dropdown-item" href="{% url "matiere_prof" %}">Voir mes cours</a></li>
                     </div>
                     <div class="btn-group col ">
-                        <button type="button" class="btn btn-info dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                        <button type="button"
+                            class="btn btn-info dropdown-toggle"
+                            data-bs-toggle="dropdown" aria-expanded="false">
                             <b>Gérer les tests</b> 
                         </button>
                         <ul class="dropdown-menu">
@@ -94,12 +96,11 @@
                         <button type="button"
                             class="btn btn-info dropdown-toggle"
                             data-bs-toggle="dropdown" aria-expanded="false">
-                            <b>Gérer archives</b>
+                            <b>Gérer archivess</b>
                         </button>
                         <ul class="dropdown-menu">
-                            <li><a class="dropdown-item"
-                                    href="{% url 'creer_archive' %}">Ajouter une archives</a></li>
-                            <li><a class="dropdown-item" href="#">Voir les archives</a></li>
+                            <li><a class="dropdown-item" href="">Ajouter une archivess</a> </li>
+                            <li><a class="dropdown-item" href="">Modifier une archivess</a></li>
                         </ul>
                     </div>
                 </div>
@@ -109,6 +110,7 @@
 
             {% block content %}
 
+            
 
             {% endblock %}
 

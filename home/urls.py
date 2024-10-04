@@ -28,6 +28,9 @@ urlpatterns = [
     path('creer_matiere/',views.creer_matiere, name="creer_matiere"),
     path('update_matiere/<int:id>/',views.update_matiere, name="update_matiere"),
     path('delete_matiere/<int:id>/', views.delete_matiere, name="delete_matiere"),
+    
+    path('login_admin/', views.login_admin, name="login_admin"),
+    path('register_admin/', views.register_admin, name="register_admin"),
 
     
 
@@ -39,10 +42,8 @@ urlpatterns = [
     path('modifier_cours/<int:id>/',views.modifier_cours, name="modifier_cours"),
     path('delete_cours/<int:id>/', views.delete_cours, name="delete_cours"),
     path('cours_matiere_prof/<int:id_matiere_prof>/', views.cours_prof, name='cours_matiere_prof'),
-    
-    
-    
-    
+    path("creer_archive/", views.creer_archive, name="creer_archive"),
+    path("archive/", views.voir_archive, name="archive"),
     #quizz
     path('create/', views.create_quiz, name='create_quiz'),
     path('add_questions/<int:quiz_id>/<int:num_questions>/', views.add_questions, name='add_questions'),

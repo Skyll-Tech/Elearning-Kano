@@ -2,6 +2,16 @@
 {% block content %}
 {% load static %}
 
+{% if messages %}
+<div class="container mt-3">
+    {% for message in messages %}
+        <div class="alert {% if message.tags %}alert-{{ message.tags }}{% else %}alert-info{% endif %}" role="alert">
+            {{ message }}
+        </div>
+    {% endfor %}
+</div>
+{% endif %}
+
 <div class="container">
     <h1 class="fs-4 mt-2"> Êtes vous sur de vouloir supprimer le cours: {{cours.titre}} ? </h1>
     <form method="post" enctype="multipart/form-data">

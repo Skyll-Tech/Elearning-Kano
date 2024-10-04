@@ -1,0 +1,20 @@
+{% extends 'home/professeur/prof_base.html' %}
+{% block content %}
+
+  <div class=" text-center fs-5 fw-bold">
+    Liste des archives<div class="row">
+      {% for archive in archive %}
+        <div class="col-3 m-4 text-black rounded fs-5 fw-bold" style="background-color: rgb(202, 202, 211);">
+          {{ archive.nom_archive }}<div class="row border border-top">
+            <div class="col">
+              <a href="" class="btn btn-info font-weight-semi-bold mt-2 border-right fs-6">modifier</a>
+            </div>
+            <div class="col">
+              <a href="" class="btn btn-danger font-weight-semi-bold mt-2 border-right fs-6 mb-2">supprimer</a>
+            </div>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+
+{% endblock %}

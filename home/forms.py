@@ -1,5 +1,5 @@
 from django import forms
-from .models import Produit, Classe, Professeur, Matiere, Cours, Quiz, Question
+from .models import Produit, Classe, Professeur, Matiere, Cours, Quiz, Question, Archives
 
 class Produit_form(forms.ModelForm):
     class Meta:
@@ -47,3 +47,9 @@ class QuestionForm(forms.ModelForm):
     class Meta:
         model = Question
         fields = ['text', 'option1', 'option2', 'option3', 'option4', 'correct_option']
+        
+
+class archive_form(forms.ModelForm):
+    class Meta:
+        model = Archives
+        fields = '__all__'
