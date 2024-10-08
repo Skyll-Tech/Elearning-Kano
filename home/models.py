@@ -23,12 +23,40 @@ class Profil(models.Model):
     email = models.EmailField()
     
     def __str__(self):
-        return self.user.username
-    
-    
+        return self.user.username    
     
     
 ###########################################fin tests###############################""
+
+################# Espace compte ##########################
+
+class Admin_auth(models.Model):
+    admin_user = models.OneToOneField(User, on_delete=models.CASCADE )
+    email = models.EmailField()
+    
+    def __str__(self):
+        return self.admin_user.username
+
+#
+
+class Prof_auth(models.Model):
+    prof_user = models.OneToOneField(User, on_delete=models.CASCADE)
+    mat_prof = models.CharField(max_length=9)
+    
+    
+    def __str__(self):
+        return self.prof_user.username
+    
+    #
+    
+class Eleve_auth(models.Model):
+    eleve_user = models.OneToOneField(User, on_delete=models.CASCADE)
+    mat_eleve = models.CharField(max_length=9)
+    
+    
+    def __str__(self):
+        return self.eleve_user.username
+    
 
 ##################### Model admin ############################
 
@@ -40,10 +68,16 @@ class Classe(models.Model):
     
 
 class Professeur(models.Model):
-    mat_prof = models.CharField(max_length=15)
+    mat_prof = models.CharField(max_length=9)
     
     def __str__(self):
         return self.mat_prof
+    
+class Eleve(models.Model):
+    mat_eleve = models.CharField(max_length=9)
+    
+    def __str__(self):
+        return self.mat_eleve
     
 
 class Matiere(models.Model):

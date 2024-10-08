@@ -1,4 +1,4 @@
-{% extends 'home/admin/auth/auth_base.html' %}
+{% extends 'home/eleve/auth/eleve_base.html' %}
 {% block content %}
   {% load static %}
 
@@ -27,11 +27,11 @@
                         {% csrf_token %}
                         <div class="input-group input-group-lg mt-3 w-75">
                             <span class="input-group-text" id="inputGroup-sizing-lg">Nom</span>
-                            <input type="text" class="form-control" name="admin_name" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-lg" required="required" />
+                            <input type="text" class="form-control" name="prof_name" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-lg" required="required" />
                         </div>
                         <div class="input-group input-group-lg mt-3 w-75">
                             <span class="input-group-text" id="inputGroup-sizing-lg">Mot de passe</span>
-                            <input type="password" class="form-control" name="admin_psw" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-lg" required="required" />
+                            <input type="password" class="form-control" name="prof_psw" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-lg" required="required" />
                         </div>
                         <div class="text-center mt-3">
                             <button class="btn btn-primary py-3 px-5 fs-5 fw-bolder" type="submit">Se connecter</button>

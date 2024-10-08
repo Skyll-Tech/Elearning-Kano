@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponse
-from .models import Produit, Classe, Professeur, Matiere, Cours, Quiz, Question, Archives
+from .models import Produit, Classe, Professeur,Prof_auth,Eleve,Eleve_auth, Matiere, Cours, Quiz, Question, Archives
 from .forms import Produit_form, Classe_form, Mat_prof_form, Matiere_form, Creer_Cours, archive_form
 from django.contrib import messages
 from django.contrib.auth.models import User
@@ -58,7 +58,8 @@ def produit_delete_view(request, id):
     return render(request, "home/delete.html", {"produit": produit})
 
 
-######### Auth ###########
+
+
 def register_view(request):
     if request.method == "POST":
         username = request.POST["username"]
@@ -74,12 +75,11 @@ def register_view(request):
             messages.error(request, "Ce compte existe deja!")
             return render(request, "home/register.html")
 
-        user = User.objects.create_user(username=username, password=password)
+        user = User.objects.create_user(username=username, password=password, email=email)
         user.save()
         messages.success(request, "Votre compte à été creer avec succes")
         return redirect("login_view")
     return render(request, "home/register.html")
-
 
 def login_view(request):
     if request.method == "POST":
@@ -97,6 +97,168 @@ def login_view(request):
 
 
 # fin des tests
+
+######### Auth ###########
+
+
+def register_admin(request):
+    return render(request, "home/admin/auth/register.html")
+
+def login_admin(request):
+    return render(request,"home/admin/auth/login.html")
+
+
+
+def admin_register(request):
+    if request.method == "POST":
+        admin_name = request.POST["admin_name"]
+        admin_email = request.POST["admin_email"]
+        admin_psw = request.POST["admin_psw"]
+        confirm_psw = request.POST["confirm_psw"]
+        
+        if admin_psw != confirm_psw:
+            messages.error(request, "Vos mots de passe ne correspondent pas!")
+            return render(request, "home/admin/auth/register.html")
+        
+        if User.objects.filter(email=admin_email).exists():
+            messages.error(request, "Ce compte existe deja!")
+            return render(request, "home/admin/auth/register.html")
+
+        user = User.objects.create_user(username=admin_name, password=admin_psw, email=admin_email)
+        user.save()
+        messages.success(request, "Votre compte à été creer avec succes")
+        return redirect("admin_login")
+    return render(request, "home/admin/auth/register.html")
+
+
+def admin_login(request):
+    if request.method == "POST":
+        admin_name = request.POST["admin_name"]
+        admin_psw = request.POST["admin_psw"]
+
+        user = authenticate(request, username=admin_name, password=admin_psw)
+        if user is not None:
+            login(request, user)
+            return redirect("indexadmin")
+        else:
+            messages.error(request, "Identifiant incorrect")
+            return render(request, "home/admin/auth/login.html")
+    return render(request, "home/admin/auth/login.html")
+
+                #######
+
+def register_prof(request):
+    return render(request,"home/professeur/auth/register")
+
+def login_prof(request):
+    return render(request,"home/professeur/auth/login")
+
+def prof_register(request):
+    if request.method == "POST":
+        mat_prof = request.POST["mat_prof"]
+        prof_name = request.POST["prof_name"]
+        prof_email = request.POST["prof_email"]
+        prof_psw = request.POST["prof_psw"]
+        confirm_psw_prof = request.POST["confirm_psw_prof"]
+        
+        if prof_psw != confirm_psw_prof:
+            messages.error(request, "Vos mots de passe ne correspondent pas!")
+            return render(request, "home/professeur/auth/register.html")
+        
+        if not Professeur.objects.filter(mat_prof=mat_prof).exists():
+            messages.error(request, "Ce matricule n'existe pas!")
+            return render(request, "home/professeur/auth/register.html")
+
+        if User.objects.filter(email=prof_email).exists():
+            messages.error(request, "Ce compte existe déjà!")
+            return render(request, "home/professeur/auth/register.html")
+        
+        # Vérification de l'association e-mail/matricule
+        if Prof_auth.objects.filter(mat_prof=mat_prof, prof_user__email=prof_email).exists():
+            messages.error(request, "Cette adresse e-mail est déjà associée à ce matricule!")
+            return render(request, "home/professeur/auth/register.html")
+        
+        # Vérification de l'existence du nom d'utilisateur
+        if User.objects.filter(username=prof_name).exists():
+            messages.error(request, "Ce nom d'utilisateur existe déjà!")
+            return render(request, "home/professeur/auth/register.html")
+            
+        user = User.objects.create_user(username=prof_name, password=prof_psw, email=prof_email)
+        user.save()
+        
+        # Création de l'entrée Prof_auth
+        Prof_auth.objects.create(prof_user=user, mat_prof=mat_prof)
+        
+        messages.success(request, "Votre compte a été créé avec succès")
+        return redirect("prof_login")
+    return render(request, "home/professeur/auth/register.html")
+
+      
+def prof_login(request):
+    if request.method == "POST":
+        prof_name = request.POST["prof_name"]
+        prof_psw = request.POST["prof_psw"]
+
+        user = authenticate(request, username=prof_name, password=prof_psw)
+        if user is not None:
+            login(request, user)
+            return redirect("matiere_prof")
+        else:
+            messages.error(request, "Identifiant incorrect")
+            return render(request, "home/professeur/auth/login.html")
+    return render(request, "home/professeur/auth/login.html")       
+
+###############################
+
+
+def register_eleve(request):
+    return render(request,"home/eleve/auth/register.html")
+
+def login_eleve(request):
+    return render(request,"home/eleve/auth/login.html")
+
+def eleve_register(request):
+    if request.method == "POST":
+        mat_eleve = request.POST["mat_eleve"]
+        eleve_name = request.POST["eleve_name"]
+        eleve_email = request.POST["eleve_email"]
+        eleve_psw = request.POST["eleve_psw"]
+        confirm_psw_eleve = request.POST["confirm_psw_eleve"]
+        
+        
+        if not mat_eleve or not eleve_name or not eleve_email or not eleve_psw or not confirm_psw_eleve:
+            messages.error(request, "Tous les champs sont obligatoires!")
+            return render(request, "home/eleve/auth/register.html")
+        
+        if eleve_psw != confirm_psw_eleve:
+            messages.error(request, "Vos mots de passe ne correspondent pas!")
+            return render(request, "home/eleve/auth/register.html")
+        
+        if not Eleve.objects.filter(mat_eleve=mat_eleve).exists():
+            messages.error(request, "Ce matricule n'existe pas!")
+            return render(request, "home/eleve/auth/register.html")
+
+        if User.objects.filter(email=eleve_email).exists():
+            messages.error(request, "Ce compte existe déjà!")
+            return render(request, "home/eleve/auth/register.html")
+        
+        if Eleve_auth.objects.filter(mat_eleve=mat_eleve, eleve_user__email=eleve_email).exists():
+            messages.error(request, "Cette adresse e-mail est déjà associée à ce matricule!")
+            return render(request, "home/eleve/auth/register.html")
+        
+        if User.objects.filter(username=eleve_name).exists():
+            messages.error(request, "Ce nom d'utilisateur existe déjà!")
+            return render(request, "home/eleve/auth/register.html")
+            
+        user = User.objects.create_user(username=eleve_name, password=eleve_psw, email=eleve_email)
+        user.save()
+        
+        Eleve_auth.objects.create(eleve_user=user, mat_eleve=mat_eleve)
+        
+        messages.success(request, "Votre compte a été créé avec succès")
+        return redirect("eleve_login")
+    return render(request, "home/eleve/auth/register.html")     
+
 
 
 ################# Admin #####################
@@ -212,15 +374,6 @@ def delete_classe(request, id):
     return render(request, "home/admin/delete_classe.html", {"classe": classe})
 
 
-
-
-          ##authentification admin
-
-def login_admin(request):
-    return render(request,"home/admin/auth/login.html")
-
-def register_admin(request):
-    return render(request, "home/admin/auth/register.html")
 
 
 ##################### Professeur #####################

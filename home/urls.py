@@ -29,8 +29,8 @@ urlpatterns = [
     path('update_matiere/<int:id>/',views.update_matiere, name="update_matiere"),
     path('delete_matiere/<int:id>/', views.delete_matiere, name="delete_matiere"),
     
-    path('login_admin/', views.login_admin, name="login_admin"),
-    path('register_admin/', views.register_admin, name="register_admin"),
+    path('admin_login/', views.admin_login, name="admin_login"),
+    path('admin_register/', views.admin_register, name="admin_register"),
 
     
 
@@ -51,6 +51,10 @@ urlpatterns = [
     path('take-quiz/<int:quiz_id>/', views.take_quiz, name='take_quiz'),
     path('quiz-result/<int:quiz_id>/<int:score>/<int:total>/', views.quiz_result, name='quiz_result'),
     
+    path('prof_register/', views.prof_register, name="prof_register"),
+    path('prof_login/', views.prof_login, name="prof_login"),
+
+    
 
       
     
@@ -61,6 +65,10 @@ urlpatterns = [
     path('display_cours/', views.display_cours,name="display_cours"),
     path('details_cours/<int:id_cours>/', views.details_cours, name="details_cours"),
     path('matiere/<int:matiere_id>/', views.cours_par_matiere, name='cours_par_matiere'),
+    
+    path('register_eleve/', views.register_eleve, name="register_eleve"),
+    path('login_eleve/', views.login_eleve, name="login_eleve"),
+
 
 ]
 

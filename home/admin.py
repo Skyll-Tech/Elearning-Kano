@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Produit, Classe, Profil, Matiere, Professeur,Archives, Cours, Quiz
+from .models import Produit, Classe, Profil, Matiere, Professeur,Archives, Cours, Quiz, Admin_auth
 # Register your models here.
 
 admin.site.register(Produit)
@@ -10,3 +10,4 @@ admin.site.register(Professeur)
 admin.site.register(Cours)
 admin.site.register(Quiz)
 admin.site.register(Archives)
+admin.site.register(Admin_auth)
