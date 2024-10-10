@@ -54,8 +54,6 @@ urlpatterns = [
     path('prof_register/', views.prof_register, name="prof_register"),
     path('prof_login/', views.prof_login, name="prof_login"),
 
-    
-
       
     
 ################# élève #################
@@ -66,7 +64,7 @@ urlpatterns = [
     path('details_cours/<int:id_cours>/', views.details_cours, name="details_cours"),
     path('matiere/<int:matiere_id>/', views.cours_par_matiere, name='cours_par_matiere'),
     
-    path('register_eleve/', views.register_eleve, name="register_eleve"),
+    path('eleve_register/', views.eleve_register, name="eleve_register"),
     path('login_eleve/', views.login_eleve, name="login_eleve"),
 
 

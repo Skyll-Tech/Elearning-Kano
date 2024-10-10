@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponse
-from .models import Produit, Classe, Professeur,Prof_auth,Eleve,Eleve_auth, Matiere, Cours, Quiz, Question, Archives
-from .forms import Produit_form, Classe_form, Mat_prof_form, Matiere_form, Creer_Cours, archive_form
+from .models import Produit, Classe, Professeur,Eleve, Prof_auth,Eleve,Eleve_auth, Matiere, Cours, Quiz, Question, Archives
+from .forms import Produit_form, Classe_form, Mat_prof_form,Mat_eleve_form,  Matiere_form, Creer_Cours, archive_form
 from django.contrib import messages
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login
@@ -164,6 +164,8 @@ def prof_register(request):
         if prof_psw != confirm_psw_prof:
             messages.error(request, "Vos mots de passe ne correspondent pas!")
             return render(request, "home/professeur/auth/register.html")
+
+
         
         if not Professeur.objects.filter(mat_prof=mat_prof).exists():
             messages.error(request, "Ce matricule n'existe pas!")
@@ -211,12 +213,6 @@ def prof_login(request):
 ###############################
 
 
-def register_eleve(request):
-    return render(request,"home/eleve/auth/register.html")
-
-def login_eleve(request):
-    return render(request,"home/eleve/auth/login.html")
-
 def eleve_register(request):
     if request.method == "POST":
         mat_eleve = request.POST["mat_eleve"]
@@ -256,8 +252,24 @@ def eleve_register(request):
         Eleve_auth.objects.create(eleve_user=user, mat_eleve=mat_eleve)
         
         messages.success(request, "Votre compte a été créé avec succès")
-        return redirect("eleve_login")
+        return redirect("login_eleve")
     return render(request, "home/eleve/auth/register.html")     
+
+
+
+def login_eleve(request):
+    if request.method == "POST":
+        eleve_name = request.POST["eleve_name"]
+        eleve_psw = request.POST["eleve_psw"]
+
+        user = authenticate(request, username=eleve_name, password=eleve_psw)
+        if user is not None:
+            login(request, user)
+            return redirect("index")
+        else:
+            messages.error(request, "Identifiant incorrect")
+            return render(request, "home/eleve/auth/login.html")
+    return render(request, "home/eleve/auth/login.html")   
 
 
 
@@ -274,6 +286,12 @@ def creer_matprof(request):
         form = Mat_prof_form(request.POST)
         if form.is_valid():
             mat_prof = form.cleaned_data["mat_prof"]
+                    
+            if len(mat_prof) != 9:
+                messages.error(request, "La longueur du matricule doit être de 9 caractères")
+                return redirect("creer_matprof")
+
+            
             if Professeur.objects.filter(mat_prof=mat_prof).exists():
                 messages.error(request, "Ce matricule existe déjà!")
             else:
@@ -287,6 +305,25 @@ def creer_matprof(request):
 
 
 def creer_mateleve(request):
+    if request.method == "POST":
+        form = Mat_eleve_form(request.POST)
+        if form.is_valid():
+            mat_eleve = form.cleaned_data["mat_eleve"]
+                    
+            if len(mat_eleve) != 9:
+                messages.error(request, "La longueur du matricule doit être de 9 caractères")
+                return redirect("creer_mateleve")
+
+            
+            if Eleve.objects.filter(mat_eleve=mat_eleve).exists():
+                messages.error(request, "Ce matricule existe déjà!")
+            else:
+                form.save()
+                messages.success(request, "Matricule crée avec succes!")
+        return redirect("creer_mateleve")
+
+    else:
+        form = Mat_eleve_form()
     return render(request, "home/admin/creer_mateleve.html")
 
 
@@ -576,4 +613,3 @@ def quiz_result(request, quiz_id, score, total):
     quiz = get_object_or_404(Quiz, id=quiz_id)
     return render(request, 'home/eleve/quizz/quiz_result.html', {'quiz': quiz, 'score': score, 'total': total})
 
-#fin quizz

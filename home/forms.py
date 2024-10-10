@@ -1,5 +1,5 @@
 from django import forms
-from .models import Produit, Classe, Professeur, Matiere, Cours, Quiz, Question, Archives
+from .models import Produit, Classe, Professeur, Matiere, Cours, Quiz, Question, Archives,Eleve
 
 class Produit_form(forms.ModelForm):
     class Meta:
@@ -19,6 +19,11 @@ class Classe_form(forms.ModelForm):
 class Mat_prof_form(forms.ModelForm):
     class Meta:
         model = Professeur
+        fields = '__all__'
+
+class Mat_eleve_form(forms.ModelForm):
+    class Meta:
+        model = Eleve
         fields = '__all__'
     
 
