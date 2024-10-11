@@ -53,6 +53,8 @@ urlpatterns = [
     
     path('prof_register/', views.prof_register, name="prof_register"),
     path('prof_login/', views.prof_login, name="prof_login"),
+    path('logout_prof/', views.logout_prof, name='logout_prof'),
+
 
       
     
@@ -63,9 +65,12 @@ urlpatterns = [
     path('display_cours/', views.display_cours,name="display_cours"),
     path('details_cours/<int:id_cours>/', views.details_cours, name="details_cours"),
     path('matiere/<int:matiere_id>/', views.cours_par_matiere, name='cours_par_matiere'),
+    path('take-quiz/<int:quiz_id>/', views.take_quiz, name='take_quiz'),
+    path('quiz-result/<int:quiz_id>/<int:score>/<int:total>/', views.quiz_result, name='quiz_result'),
     
     path('eleve_register/', views.eleve_register, name="eleve_register"),
     path('login_eleve/', views.login_eleve, name="login_eleve"),
+    path('logout_eleve/', views.logout_eleve, name='logout_eleve'),
 
 
 ]

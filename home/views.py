@@ -4,7 +4,8 @@ from .models import Produit, Classe, Professeur,Eleve, Prof_auth,Eleve,Eleve_aut
 from .forms import Produit_form, Classe_form, Mat_prof_form,Mat_eleve_form,  Matiere_form, Creer_Cours, archive_form
 from django.contrib import messages
 from django.contrib.auth.models import User
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.decorators import login_required
 
 # Create your views here.
 
@@ -208,7 +209,11 @@ def prof_login(request):
         else:
             messages.error(request, "Identifiant incorrect")
             return render(request, "home/professeur/auth/login.html")
-    return render(request, "home/professeur/auth/login.html")       
+    return render(request, "home/professeur/auth/login.html")    
+
+def logout_prof(request):
+    logout(request)
+    return redirect('login_prof')    
 
 ###############################
 
@@ -269,7 +274,11 @@ def login_eleve(request):
         else:
             messages.error(request, "Identifiant incorrect")
             return render(request, "home/eleve/auth/login.html")
-    return render(request, "home/eleve/auth/login.html")   
+    return render(request, "home/eleve/auth/login.html")  
+
+def logout_eleve(request):
+    logout(request)
+    return redirect('login_eleve') 
 
 
 
@@ -415,13 +424,13 @@ def delete_classe(request, id):
 
 ##################### Professeur #####################
 
-
+@login_required(login_url='/index_prof/')
 def index_prof(request):
     cours = Cours.objects.all()
     context = {"cour": cours}
     return render(request, "home/professeur/index.html", context)
 
-
+@login_required(login_url='/index_prof/')
 def creer_cours(request):
     classes = Classe.objects.all()
     matiere = Matiere.objects.all()
@@ -440,20 +449,20 @@ def creer_cours(request):
 
     return render(request, "home/professeur/creer_cours.html", context)
 
-
+@login_required(login_url='/index_prof/')
 def matiere_prof(request):
     matiere = Matiere.objects.all()
     context = {"matieres": matiere}
     return render(request, "home/professeur/matiere_prof.html", context)
 
-
+@login_required(login_url='/index_prof/')
 def cours_prof(request, id_matiere_prof):
     matiere = get_object_or_404(Matiere, id=id_matiere_prof)
     cours = Cours.objects.filter(choix_matiere=matiere) # Permet d'indiqueer que nous voulons  filtrer les cours dont la matière correspond à l’objet matiere spécifié
     context = {"cours": cours, "matieres": matiere}  # Contexte pour le template
     return render(request, "home/professeur/cours_prof.html", context)  # Rendre le template avec le contexte
 
-
+@login_required(login_url='/index_prof/')
 def modifier_cours(request, id):
     cours = get_object_or_404(Cours, id=id)
     classes = Classe.objects.all()
@@ -474,7 +483,7 @@ def modifier_cours(request, id):
     context = {"classe": classes, "matiere": matiere, "cours": cours, "form": form}
     return render(request, "home/professeur/modifier_cours.html", context)
 
-
+@login_required(login_url='/index_prof/')
 def delete_cours(request, id):
     cours = get_object_or_404(Cours, id=id)
     if request.method == "POST":
@@ -486,7 +495,7 @@ def delete_cours(request, id):
 
 # Quizz
 
-
+@login_required(login_url='/index_prof/')
 def create_quiz(request):
     if request.method == 'POST':
         title = request.POST.get('title')  # Récupérer le titre du quiz
@@ -527,7 +536,8 @@ def add_questions(request, quiz_id, num_questions):
         'quiz': quiz,
         'combined_list': combined_list
     })  # Passer la liste combinée au template
-
+    
+@login_required(login_url='/index_prof/')
 #voir les quizz
 def quiz_list(request):
     quizzes = Quiz.objects.all()
@@ -536,7 +546,7 @@ def quiz_list(request):
 
 
 # Archives
-
+@login_required(login_url='/index_prof/')
 def voir_archive(request):
     archive = Archives.objects.all()
     context = {"archive":archive}
@@ -562,7 +572,7 @@ def creer_archive(request):
 def index(request):
     return render(request, "home/eleve/index.html")
 
-
+@login_required(login_url='/login_eleve/')
 def display_matiere(request):
     matiere = Matiere.objects.all()
     context = {"matieres": matiere}

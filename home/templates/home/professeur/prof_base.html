@@ -28,6 +28,13 @@
                         <div class="d-inline-flex text-white">
                             <p class="m-0 text-uppercase text-white">Kano learning</p>
                         </div>
+                        <div class="d-inline-flex text-white pt-5">
+                            {% if user.is_authenticated %}
+                                <a href="{% url 'logout_prof' %}" class="nav-item nav-link text-white fw-bold border">Se déconnecter</a>
+                            {% else %}
+                                <a href="{% url 'prof_login' %}" class="nav-item nav-link text-white fw-bold border">Se connecter</a>
+                            {% endif %}
+                        </div>
                     </div>
                 </div>
             </div>
